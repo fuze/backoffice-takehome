@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="
+
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	">
+
+	<!-- GSON -->
+	<bean id="dateFormatString" class="java.lang.String">
+		<constructor-arg value="yyyy-MM-dd HH:mm:ss.SSSZ"/>
+	</bean>	
+	
+	<bean id="gsonBuilder" class="com.google.gson.GsonBuilder">
+		<property name="dateFormat" ref="dateFormatString" />
+	</bean>
+	
+ 	<bean id="gson" factory-bean="gsonBuilder" factory-method="create"/>
+	
+	<!-- ENDPOINTS -->
+	<bean class="com.fuze.takehome.jaxrs.endpoint.CustomerEndpoint" autowire="byType"/>
+	<bean class="com.fuze.takehome.jaxrs.endpoint.UserEndpoint" autowire="byType"/>		
+	<bean class="com.fuze.takehome.jaxrs.endpoint.DepartmentEndpoint" autowire="byType"/>
+	<bean class="com.fuze.takehome.jaxrs.endpoint.HealthCheckEndpoint" autowire="byType"/>
+
+	<!-- MESSAGES -->
+	<bean class="com.fuze.takehome.jaxrs.json.JsonEncoder" autowire="byType"/>
+	<bean class="com.fuze.takehome.jaxrs.json.JsonMessageBodyWriter" autowire="byType"/>
+	<bean class="com.fuze.takehome.jaxrs.json.JsonMessageBodyReader" autowire="byType"/>
+	
+</beans>

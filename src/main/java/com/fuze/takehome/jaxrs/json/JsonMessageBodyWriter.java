@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+import javax.inject.Inject;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -16,7 +17,9 @@ import javax.ws.rs.ext.Provider;
 @Produces({ MediaType.APPLICATION_JSON })
 public class JsonMessageBodyWriter implements MessageBodyWriter<Object>
 {
-
+	@Inject
+	private JsonEncoder jsonEncoder;
+	
 	@Override
 	public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType)
 	{
@@ -33,7 +36,7 @@ public class JsonMessageBodyWriter implements MessageBodyWriter<Object>
 	public void writeTo(Object entity, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
 			OutputStream entityStream) throws IOException, WebApplicationException
 	{
-		JsonEncoder.toJson(entity, type, entityStream);
+		jsonEncoder.toJson(entity, type, entityStream);
 	}
 
 

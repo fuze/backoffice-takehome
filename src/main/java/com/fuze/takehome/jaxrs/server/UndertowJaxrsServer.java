@@ -1,14 +1,9 @@
 package com.fuze.takehome.jaxrs.server;
 
 import javax.servlet.ServletException;
-import javax.ws.rs.core.Application;
-
 import org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher;
-import org.jboss.resteasy.spi.ResteasyDeployment;
-
-import com.fuze.takehome.jaxrs.json.JsonMessageBodyReader;
-import com.fuze.takehome.jaxrs.json.JsonMessageBodyWriter;
-
+import org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap;
+import org.jboss.resteasy.plugins.spring.SpringContextLoaderListener;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.servlet.Servlets;
@@ -18,7 +13,8 @@ import io.undertow.servlet.api.DeploymentManager;
 public class UndertowJaxrsServer
 {
 	public static Undertow initializeServer() throws ServletException
-	{		
+	{
+		//Add an HTTP listener bound to port 50001 and listing to all
 		Undertow server = Undertow.builder()
                 .addHttpListener(50001, "0.0.0.0")
                 .setHandler(buildDeploymentManager())
@@ -34,26 +30,23 @@ public class UndertowJaxrsServer
                 .setClassLoader(UndertowJaxrsServer.class.getClassLoader())
                 .setDeploymentName("UndertowJaxrsServer")
                 .setContextPath("/")
+                //Location of the Spring XML configuration file
+                .addInitParameter("contextConfigLocation", "classpath:spring/application.xml")
                 .addServlets(
                 		 Servlets.servlet("REST Service", HttpServlet30Dispatcher.class)
                 		 .setAsyncSupported(true)
                          .setLoadOnStartup(1)
                          .addMapping("/*")
                 )
-                .addServletContextAttribute(ResteasyDeployment.class.getName(), getDeployment());
+                .addListeners(
+                		//Initializes Rest Easy automatically
+                        Servlets.listener(ResteasyBootstrap.class),
+                        //Initializes Spring
+                        Servlets.listener(SpringContextLoaderListener.class)
+                );
 
         DeploymentManager deploymentManager = Servlets.defaultContainer().addDeployment(servletBuilder);
         deploymentManager.deploy();
         return deploymentManager.start();
     }
-
-	private static ResteasyDeployment getDeployment()
-	{
-		Application application = new TccRestApplication();
-		ResteasyDeployment deployment = new ResteasyDeployment();
-		deployment.setApplication(application);
-		deployment.getProviders().add(new JsonMessageBodyReader());
-		deployment.getProviders().add(new JsonMessageBodyWriter());
-		return deployment;
-	}
 }
