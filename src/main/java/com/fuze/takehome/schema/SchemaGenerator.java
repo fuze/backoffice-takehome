@@ -17,8 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fuze.takehome.util.DummyDataGenerator;
 
-public class SchemaGenerator
-{
+public class SchemaGenerator {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SchemaGenerator.class);
 	
 	//For now we hard-code the schema name.
@@ -32,8 +31,7 @@ public class SchemaGenerator
 	private DummyDataGenerator dataGenerator;
 	
 	@PostConstruct
-	public void generateSchemas() throws Exception
-	{
+	public void generateSchemas() throws Exception {
 		try(Connection conn = dataSource.getConnection()) {
 			generateSchema(conn, DB_SCHEMA_FORGE_NAME, DB_SCRIPT_PATH_FORGE);
 		}
@@ -49,13 +47,11 @@ public class SchemaGenerator
 	{
 		try {
 			//Only create the schema if it does not exist
-			if(doesSchemaExist(conn, schema))
-			{
+			if(doesSchemaExist(conn, schema)) {
 				LOGGER.info(String.format("DB schema %s already exists. It will not be upgraded.", schema));
 				return;
 			}
-			else
-			{
+			else {
 				LOGGER.info(String.format("DB schema %s not found. Attempting to create it...", schema));
 			}
 			
@@ -71,8 +67,7 @@ public class SchemaGenerator
 		}
 	}	
 	
-	private boolean doesSchemaExist(Connection conn, String schema) throws SQLException
-	{
+	private boolean doesSchemaExist(Connection conn, String schema) throws SQLException {
 		Statement s = null;
 		s = conn.createStatement();
 		s.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = '" + schema + "';");

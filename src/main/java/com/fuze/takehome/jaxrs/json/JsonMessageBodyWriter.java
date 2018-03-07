@@ -15,27 +15,23 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 @Produces({ MediaType.APPLICATION_JSON })
-public class JsonMessageBodyWriter implements MessageBodyWriter<Object>
-{
+public class JsonMessageBodyWriter implements MessageBodyWriter<Object> {
 	@Inject
 	private JsonEncoder jsonEncoder;
 	
 	@Override
-	public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType)
-	{
+	public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
 		return true;
 	}
 
 	@Override
-	public long getSize(Object t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType)
-	{
+	public long getSize(Object t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
 		return -1;
 	}
 
 	@Override
 	public void writeTo(Object entity, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
-			OutputStream entityStream) throws IOException, WebApplicationException
-	{
+			OutputStream entityStream) throws IOException, WebApplicationException {
 		jsonEncoder.toJson(entity, type, entityStream);
 	}
 

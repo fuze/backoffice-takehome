@@ -17,7 +17,7 @@ public interface DepartmentMapper {
 	@Insert("INSERT into takeHome.departments "
 			+ "(customer_id, name, description, active) "
 			+ "VALUES "
-			+ "(#{in.customerId}, #{in.name}, #{in.description}, #{in.active} )")
+			+ "(#{in.customerId}, #{in.name}, #{in.description}, #{in.active})")
 	@Options(useGeneratedKeys=true, keyProperty="in.id")
 	public int create(@Param("in") Department in);
 
@@ -31,10 +31,10 @@ public interface DepartmentMapper {
 			@Result(property = "name", 			column = "name"),
 			@Result(property = "description", 	column = "description"),
 			@Result(property = "active",		column = "active"),
-				})
+	})
 	public Department read(Long id);
 	
-	@Delete("DELETE FROM takeHome.departments WHERE id = #{id} ")
+	@Delete("DELETE FROM takeHome.departments WHERE id = #{id}")
 	public int delete(Long id);
 }
 

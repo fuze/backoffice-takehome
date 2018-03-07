@@ -45,9 +45,15 @@ public class DummyDataGenerator
 		departmentService.create(new Department()
                         				.withActive(true)
                         				.withCustomerId(0L)
-                        				.withDescription("Engineering")
+                        				.withDescription("Engineering Group 1")
                         				.withName("Eng"));
-                        	}
+		
+		departmentService.create(new Department()
+				.withActive(true)
+				.withCustomerId(0L)
+				.withDescription("Engineering Group 2")
+				.withName("Eng"));
+	}
 	
 	private void generateUsers() 
 	{

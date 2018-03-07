@@ -21,7 +21,7 @@ public interface CustomerMapper {
 
 	@Select("SELECT c.id,c.name,c.active,c.contact_email,c.contact_firstname,c.contact_lastname "
 			+ "FROM takeHome.customers c "
-			+ "WHERE c.id = #{id} ")
+			+ "WHERE c.id = #{id}")
 	@Results(value = { 
 			@Result(property = "id", 			column = "id"),
 			@Result(property = "name", 			column = "name"),
@@ -29,7 +29,7 @@ public interface CustomerMapper {
 			@Result(property = "contact.email",	column = "contact_email"),
 			@Result(property = "contact.firstName",	column = "contact_firstname"),
 			@Result(property = "contact.lastName",	column = "contact_lastname")
-				})
+	})
 	public Customer read(Long id); 	
 	
 	@Delete("DELETE FROM takeHome.customers WHERE id = #{id}")

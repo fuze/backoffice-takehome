@@ -15,20 +15,17 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 @Consumes({MediaType.APPLICATION_JSON})
-public class JsonMessageBodyReader implements MessageBodyReader<Object>
-{
+public class JsonMessageBodyReader implements MessageBodyReader<Object> {
 	@Inject
 	private JsonEncoder jsonEncoder;
 	
 	@Override
-	public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType)
-	{
+	public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
 		return true;
 	}
 
 	@Override
-	public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException
-	{
+	public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
 		return jsonEncoder.fromJson(type,entityStream);
 	}
 }

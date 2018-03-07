@@ -15,9 +15,19 @@ public class UserTest extends AbstractEntityTest {
 	@Inject
 	private UserService service;
 	
+	/**
+	 * Test the User Entity and User Service.
+	 * 
+	 * Assert that entity validation is working correctly and
+	 * the service methods are doing what they are supposed to be doing.
+	 * 
+	 * Before this test executes, AbstractEntityTest takes care of initializing
+	 * Spring and starting an in-memory DB instance. DummyDataGenerator is
+	 * invoked to insert a couple dummy entities into the database. 
+	 * 
+	 */
 	@Test
-	public void testUser()
-	{
+	public void testUser() {
 		List<User> allUsers = service.list();
 		Assert.assertNotNull(allUsers);
 		Assert.assertEquals(2, allUsers.size());

@@ -19,26 +19,21 @@ public class AbstractEntityTest {
 	private ConfigurableApplicationContext ctx;
 	
 	@Before
-	public void initialize()
-	{
-		try
-		{
+	public void initialize() {
+		try {
 			ctx = new ClassPathXmlApplicationContext(SPRING_CONTEXT_PATH);
 			AutowireCapableBeanFactory factory = ctx.getAutowireCapableBeanFactory();
 			factory.autowireBean(this);
 		}
-		catch(Exception e)
-		{
+		catch(Exception e) {
 			log.error("Failed to initialize Spring Application Context. Halting.", e);
 			System.exit(1);
 		}
 	}
 	
 	@After
-	public void destroy()
-	{
-		if (null != ctx)
-		{
+	public void destroy() {
+		if (null != ctx) {
 			ctx.close();
 		}
 	}

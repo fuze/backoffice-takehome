@@ -26,7 +26,7 @@ public interface UserMapper {
 	@Select("SELECT "
 			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active "
 			+ "FROM takeHome.users "
-			+ "WHERE id = #{id} " )
+			+ "WHERE id = #{id}" )
 	@Results(value = { 
 			@Result(property = "id", 			column = "id"),
 			@Result(property = "customerId", 	column = "customer_id"), 
@@ -45,7 +45,7 @@ public interface UserMapper {
 	@Select("SELECT id FROM takeHome.users")
 	public Collection<Long> list(); 	
 	
-	@Delete("DELETE FROM takeHome.users WHERE id = #{id} ")
+	@Delete("DELETE FROM takeHome.users WHERE id = #{id}")
 	public int delete(Long id); 	
 }
 

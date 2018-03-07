@@ -10,10 +10,9 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 
-public class UndertowJaxrsServer
-{
-	public static Undertow initializeServer() throws ServletException
-	{
+public class UndertowJaxrsServer {
+	
+	public static Undertow initializeServer() throws ServletException {
 		//Add an HTTP listener bound to port 50001 and listing to all
 		Undertow server = Undertow.builder()
                 .addHttpListener(50001, "0.0.0.0")
@@ -24,8 +23,7 @@ public class UndertowJaxrsServer
 		return server;
 	}
 	
-	private static HttpHandler buildDeploymentManager() throws ServletException
-	{
+	private static HttpHandler buildDeploymentManager() throws ServletException {
         DeploymentInfo servletBuilder = Servlets.deployment()
                 .setClassLoader(UndertowJaxrsServer.class.getClassLoader())
                 .setDeploymentName("UndertowJaxrsServer")
