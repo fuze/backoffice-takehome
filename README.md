@@ -11,7 +11,7 @@ This exam provides a basic evaluation of the following:
 * Git
 * Maven
 
-The app has been stripped of real-world complexities and has been specifically designed to be easy run. It contains a very simple CRUD-style REST API for 3 typical entities: Customers, Users & Departments. These entities are stored in-memory using HyperSQL DataBase and the schema is automatically created at start-up from a .sql file within the classpath. The entire application, including the web server, is packaged into a single Jar file that can be run by invoking the main() method of the com.fuze.takehome.Main class, without arguments.
+The app has been stripped of real-world complexities and has been specifically designed to be easy to run. It contains a very simple CRUD-style REST API for 3 typical entities: Customers, Users & Departments. These entities are stored in-memory using HyperSQL DataBase and the schema is automatically created at start-up from a .sql file within the classpath. The entire application, including the web server, is packaged into a single Jar file that can be run by invoking the main() method of the com.fuze.takehome.Main class, without arguments.
 
 Note that you may find the app incomplete or lacking in features, this is intentional. The goal is not to have a production-ready app. Functionality has been deliberately omitted to make the exercises quicker to complete. 
 
@@ -44,10 +44,10 @@ In order to run and modify the application, you will need to have the following:
 
 # Exercises
 
-1. Perform a code review on the class com.fuze.takehome.jaxrs.endpoint.UserEndpoint and com.fuze.takehome.service.UserService. Evaluate the code a though it were written by a colleague and provide any suggestions for the developer as to what should/needs to be changed. If you wish, you may go ahead and make code changes yourself. You may either place comments inside the code or send them as a text file accompanying the code, whatever you prefer.
+1. Perform a code review on the class com.fuze.takehome.jaxrs.endpoint.UserEndpoint and com.fuze.takehome.service.UserService. Evaluate the code as though it was written by a colleague and provide any suggestions for the developer as to what should/needs to be changed. If you wish, you may go ahead and make code changes yourself. You may either place comments inside the code or send them as a text file accompanying the code, whatever you prefer.
 
 2. Oh no! A lazy developer started writing a J-Unit test for the UserService but couldn’t be bothered to finish it! Even worse, they left the test in a broken state. Fix the existing test and complete it as you see fit. The class is com.fuze.takehome.test.UserTest. You do not need to create tests for the other entities, only the User entity.
 
-3. The customer endpoint (implement by com.fuze.takehome.jaxrs.endpoint.CustomerEndpoint) does not provide an update method. Implement the ability to update the Customer entity using typical RESTful good practises.
+3. The customer endpoint (implemented by com.fuze.takehome.jaxrs.endpoint.CustomerEndpoint) does not provide an update method. Implement the ability to update the Customer entity using typical RESTful good practices.
 
-4. The Department-User relationship is a one One-To-Many relationship. Change the relationship so that it becomes a Many-To-Many relationship. You will need to make modifications to all layers of the application. Hint: The schema creation script can be found at /src.main/resources/schema/create.schema.sql.
+4. The Department-User relationship is a One-To-Many relationship. Change the relationship so that it becomes a Many-To-Many relationship. You will need to make modifications to all layers of the application. Hint: The schema creation script can be found at /src.main/resources/schema/create.schema.sql.
