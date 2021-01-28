@@ -6,8 +6,10 @@ import com.fuze.takehome.model.Customer;
 import com.fuze.takehome.model.Customer.Contact;
 import com.fuze.takehome.model.Department;
 import com.fuze.takehome.model.User;
+import com.fuze.takehome.model.UserDepartment;
 import com.fuze.takehome.service.CustomerService;
 import com.fuze.takehome.service.DepartmentService;
+import com.fuze.takehome.service.UserDepartmentService;
 import com.fuze.takehome.service.UserService;
 
 public class DummyDataGenerator
@@ -21,11 +23,15 @@ public class DummyDataGenerator
 	@Inject
 	private UserService userService;
 	
+	@Inject
+	private UserDepartmentService userDepartmentService;
+
 	public void generateData()
 	{
 		generateCustomers();
 		generateDepartments();
 		generateUsers();
+		generateUserDepartment();
 	}
 	
 	private void generateCustomers()
@@ -60,7 +66,6 @@ public class DummyDataGenerator
 		userService.create(new User()
 				.withActive(true)
 				.withCustomerId(0L)
-				.withDepartmentId(0L)
 				.withEmail("r.castorena@toyota.ca")
 				.withFirstName("Randy")
 				.withLastName("Castorena")
@@ -77,5 +82,11 @@ public class DummyDataGenerator
 				.withMobileNumber("555-7124-554")
 				.withTelephoneNumber("555-9965-123")
 				.withUserName("whertlein"));
+	}
+
+	private void generateUserDepartment() {
+		userDepartmentService.create(new UserDepartment()
+				.withDepartmentId(0L)
+				.withUserId(0L));
 	}
 }

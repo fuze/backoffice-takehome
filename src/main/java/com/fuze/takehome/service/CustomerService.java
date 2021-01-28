@@ -9,14 +9,14 @@ import com.fuze.takehome.model.Customer;
 import com.fuze.takehome.mybatis.CustomerMapper;
 
 public class CustomerService {
-	
+
 	@Inject
 	private CustomerMapper mapper;
 
 	@Transactional
 	public Customer create(Customer customer) {
 		mapper.create(customer);
-		return customer;		
+		return customer;
 	}
 
 	@Transactional
@@ -31,6 +31,16 @@ public class CustomerService {
 
 	@Transactional
 	public Customer delete(Long id) {
-		throw new NotSupportedException();
+		throw new NotSupportedException(); // Nice :)
+	}
+
+	@Transactional
+	public Customer update(Long id, Customer customer) {
+		Customer actualCustomer = mapper.read(id);
+		if (actualCustomer == null) {
+			throw new NotFoundException();
+		}
+		mapper.update(id, customer);
+		return customer;
 	}
 }

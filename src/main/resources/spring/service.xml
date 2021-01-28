@@ -23,7 +23,8 @@
 	<!-- entity services -->
 
 	<bean name="customerService" class="com.fuze.takehome.service.CustomerService"/>
- 	<bean name="departmentService" class="com.fuze.takehome.service.DepartmentService"/>
- 	<bean name="userService" class="com.fuze.takehome.service.UserService"/>
+	<bean name="departmentService" class="com.fuze.takehome.service.DepartmentService"/>
+	<bean name="userService" class="com.fuze.takehome.service.UserService"/>
+	<bean name="userDepartmentService" class="com.fuze.takehome.service.UserDepartmentService"/>
 	
 </beans>

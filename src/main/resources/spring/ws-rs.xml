@@ -28,7 +28,7 @@
 	<bean class="com.fuze.takehome.jaxrs.endpoint.UserEndpoint" autowire="byType"/>		
 	<bean class="com.fuze.takehome.jaxrs.endpoint.DepartmentEndpoint" autowire="byType"/>
 	<bean class="com.fuze.takehome.jaxrs.endpoint.HealthCheckEndpoint" autowire="byType"/>
-
+	<bean class="com.fuze.takehome.jaxrs.endpoint.UserDepartmentEndpoint" autowire="byType"/>
 	<!-- MESSAGES -->
 	<bean class="com.fuze.takehome.jaxrs.json.JsonEncoder" autowire="byType"/>
 	<bean class="com.fuze.takehome.jaxrs.json.JsonMessageBodyWriter" autowire="byType"/>

@@ -17,14 +17,14 @@ import com.fuze.takehome.model.User;
 public interface UserMapper {
 		
 	@Insert("INSERT into takeHome.users "
-			+ "(customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active) "
+			+ "(customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, active) "
 			+ "VALUES "
-			+ "(#{in.customerId}, #{in.userName}, #{in.firstName}, #{in.lastName}, #{in.email}, #{in.telephoneNumber}, #{in.mobileNumber}, #{in.faxNumber}, #{in.departmentId}, #{in.active})")
+			+ "(#{in.customerId}, #{in.userName}, #{in.firstName}, #{in.lastName}, #{in.email}, #{in.telephoneNumber}, #{in.mobileNumber}, #{in.faxNumber}, #{in.active})")
 	@Options(useGeneratedKeys=true, keyProperty="in.id")
 	public int create(@Param("in") User in);
 
 	@Select("SELECT "
-			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active "
+			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, active "
 			+ "FROM takeHome.users "
 			+ "WHERE id = #{id}" )
 	@Results(value = { 
@@ -37,7 +37,6 @@ public interface UserMapper {
 			@Result(property = "telephoneNumber", 		column = "telephone_number"),
 			@Result(property = "mobileNumber", 		column = "mobile_number"),
 			@Result(property = "faxNumber", 		column = "fax_number"),
-			@Result(property = "departmentId", 	column = "department_id"),
 			@Result(property = "active", 		column = "active")
 	})
 	public User read(Long id);
