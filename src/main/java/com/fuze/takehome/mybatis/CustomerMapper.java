@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import com.fuze.takehome.model.Customer;
 
 @Named
@@ -34,4 +35,9 @@ public interface CustomerMapper {
 	
 	@Delete("DELETE FROM takeHome.customers WHERE id = #{id}")
 	public int delete(Long id); 	
+	
+	@Insert("UPDATE takeHome.customers " +
+			"SET name = #{in.name}, active = #{in.active}, contact_email = #{in.contact.email}, contact_firstname = #{in.contact.firstName}, contact_lastname = #{in.contact.lastName} " + 
+			"WHERE id = #{param2}")
+	public int update(@Param("in") Customer in, Long param2);
 }

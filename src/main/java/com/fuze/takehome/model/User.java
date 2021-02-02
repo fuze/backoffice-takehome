@@ -1,5 +1,7 @@
 package com.fuze.takehome.model;
 
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,15 +29,18 @@ public class User {
 
 	@Size(max = 20, message = "mobileNumber maximum length is 20 characters")
 	private String mobileNumber;
-
-	@Size(max = 20, message = "mobileNumber maximum length is 20 characters")
+	// message has to be fax number
+//	@Size(max = 20, message = "mobileNumber maximum length is 20 characters")
+	@Size(max = 20, message = "faxNumber maximum length is 20 characters")
 	private String faxNumber;
 
-	@NotNull(message = "departmentId cannot be null")
-	private Long departmentId;
+//	@NotNull(message = "departmentId cannot be null")
+//	private Long departmentId;
 
 	@NotNull(message = "active cannot be null")
 	private boolean active;
+	
+	private Set<UserDepartment> userDepartments;
 
 	public Long getId() {
 		return id;
@@ -69,13 +74,13 @@ public class User {
 		this.customerId = customerId;
 	}
 
-	public Long getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
-	}
+//	public Long getDepartmentId() {
+//		return departmentId;
+//	}
+//
+//	public void setDepartmentId(Long departmentId) {
+//		this.departmentId = departmentId;
+//	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -125,6 +130,14 @@ public class User {
 		this.active = active;
 	}
 	
+	public Set<UserDepartment> getUserDepartments() {
+		return userDepartments;
+	}
+
+	public void setUserDepartments(Set<UserDepartment> userDepartments) {
+		this.userDepartments = userDepartments;
+	}
+	
 	public User withId(Long id) {
 		this.id = id;
 		return this;
@@ -170,13 +183,18 @@ public class User {
 		return this;
 	}
 
-	public User withDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
-		return this;
-	}
+//	public User withDepartmentId(Long departmentId) {
+//		this.departmentId = departmentId;
+//		return this;
+//	}
 
 	public User withActive(boolean active) {
 		this.active = active;
+		return this;
+	}
+	
+	public User withUserDepartment(Set<UserDepartment> userDepartments) {
+		this.userDepartments = userDepartments;
 		return this;
 	}
 }

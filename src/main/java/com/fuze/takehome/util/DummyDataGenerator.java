@@ -60,7 +60,7 @@ public class DummyDataGenerator
 		userService.create(new User()
 				.withActive(true)
 				.withCustomerId(0L)
-				.withDepartmentId(0L)
+//				.withDepartmentId(0L)
 				.withEmail("r.castorena@toyota.ca")
 				.withFirstName("Randy")
 				.withLastName("Castorena")
