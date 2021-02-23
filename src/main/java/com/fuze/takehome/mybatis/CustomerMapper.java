@@ -2,13 +2,7 @@ package com.fuze.takehome.mybatis;
 
 import javax.inject.Named;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import com.fuze.takehome.model.Customer;
 
 @Named
@@ -30,8 +24,17 @@ public interface CustomerMapper {
 			@Result(property = "contact.firstName",	column = "contact_firstname"),
 			@Result(property = "contact.lastName",	column = "contact_lastname")
 	})
-	public Customer read(Long id); 	
-	
+	public Customer read(Long id);
+
+	@Update("UPDATE takeHome.customers " +
+			"SET name = #{in.name}, " +
+			"active = #{in.active}, " +
+			"contact_email = #{in.contact.email}, " +
+			"contact_firstname = #{in.contact.firstName}, " +
+			"contact_lastname = #{in.contact.lastName} " +
+			"WHERE id = #{in.id}")
+	public int update(@Param("in") Customer in);
+
 	@Delete("DELETE FROM takeHome.customers WHERE id = #{id}")
 	public int delete(Long id); 	
 }
