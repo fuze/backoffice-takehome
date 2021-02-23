@@ -29,7 +29,7 @@ public class CustomerEndpoint {
 		return service.read(id);
 	}
 
-	@POST
+	@PUT
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
