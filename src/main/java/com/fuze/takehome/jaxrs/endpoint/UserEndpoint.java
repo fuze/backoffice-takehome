@@ -43,9 +43,9 @@ public class UserEndpoint {
 	public List<User> list() {
 		return service.list();
 	}	
-	
+	//redundant to have delete in path when the HTTP itself is delete
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public User delete(@NotNull @PathParam("id") Long id) {
 		return service.delete(id);

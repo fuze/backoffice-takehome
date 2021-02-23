@@ -34,10 +34,13 @@ public class UserService {
 	
 	@Transactional
 	public List<User> list() {
-		LinkedList<User> userReturnList  = new LinkedList<User>();
-		ArrayList<Long> userIds = new ArrayList<Long>(mapper.list());
+		// dont need to list <T> in the second part of the initialization
+		// as java 8 handles that for us already
+		LinkedList<User> userReturnList  = new LinkedList<>();
+		ArrayList<Long> userIds = new ArrayList<>(mapper.list());
+		//userIds.get(0) should be userIds.get(i) as it keeps getting the same one
 		for(int i = 0; i < userIds.size(); i++) {
-			userReturnList.add(mapper.read(userIds.get(0)));
+			userReturnList.add(mapper.read(userIds.get(i)));
 		}
 		return userReturnList;
 	}
@@ -48,16 +51,8 @@ public class UserService {
 		if (user  == null) {
 			throw new NotFoundException();
 		}
-		int count = 0;
-		try {
-			count = mapper.delete(id);
-		}
-		catch(Exception e){
-		}
-		if(count < 1)
-		{
-			throw new NotFoundException();	
-		}
+		mapper.delete(id);
+		//below is redundant as the try catch is already handled above
 		return user;
 	}	
 }
