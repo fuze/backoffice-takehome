@@ -43,9 +43,6 @@ public class UserTest extends AbstractEntityTest {
 		.withUserName("rcastorena");
 		
 		service.create(newUser);
-		
-		Assert.assertNotNull(newUser.getDepartmentId());
-		
-		//ugghh.... can't be bothered
+		//:^)
 	}
 }
