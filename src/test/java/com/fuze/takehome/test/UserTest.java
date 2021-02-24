@@ -41,8 +41,27 @@ public class UserTest extends AbstractEntityTest {
 		.withMobileNumber("555-2356-254")
 		.withTelephoneNumber("555-8512-763")
 		.withUserName("rcastorena");
-		
+
+		//add the user and check if the size increases to verify its addition
 		service.create(newUser);
-		//:^)
+		allUsers = service.list();
+		Assert.assertNotNull(allUsers);
+		Assert.assertEquals(3, allUsers.size());
+		//get user by id and assert that the values are the same as above
+		//checks both User model and read simultaneously
+		User testUser = service.read(2L);
+		Assert.assertEquals(newUser.getCustomerId(), testUser.getCustomerId());
+		Assert.assertEquals(newUser.isActive(), testUser.isActive());
+		Assert.assertEquals(newUser.getEmail(), testUser.getEmail());
+		Assert.assertEquals(newUser.getFirstName(), testUser.getFirstName());
+		Assert.assertEquals(newUser.getLastName(), testUser.getLastName());
+		Assert.assertEquals(newUser.getMobileNumber(), testUser.getMobileNumber());
+		Assert.assertEquals(newUser.getUserName(), testUser.getUserName());
+
+		//test delete
+		service.delete(2L);
+		allUsers = service.list();
+		Assert.assertNotNull(allUsers);
+		Assert.assertEquals(2, allUsers.size());
 	}
 }
