@@ -45,7 +45,8 @@ public class UserEndpoint {
 	}	
 	
 	@DELETE
-	@Path("/delete/{id}")
+	//Usually don't specify action in endpoint path
+	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public User delete(@NotNull @PathParam("id") Long id) {
 		return service.delete(id);
