@@ -3,6 +3,7 @@ package com.fuze.takehome.test;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,11 +27,15 @@ public class UserTest extends AbstractEntityTest {
 	 * invoked to insert a couple dummy entities into the database. 
 	 * 
 	 */
+	
 	@Test
-	public void testUser() {
+	public void testListUser() {
 		List<User> allUsers = service.list();
 		Assert.assertNotNull(allUsers);
-		Assert.assertEquals(2, allUsers.size());
+	}
+	
+	@Test
+	public void testCreateUser() {
 		
 		User newUser = new User()
 		.withActive(true)
@@ -40,12 +45,84 @@ public class UserTest extends AbstractEntityTest {
 		.withLastName("Test")
 		.withMobileNumber("555-2356-254")
 		.withTelephoneNumber("555-8512-763")
-		.withUserName("rcastorena");
+		.withUserName("rcastorena")
+		.withDepartmentId(0L);
 		
-		service.create(newUser);
+		User createdUser = service.create(newUser);
+		Assert.assertEquals(newUser, createdUser);
+	}
+	
+	@Test
+	public void testReadUser() {
+		// Create user to be read
+		User newUser = new User()
+		.withActive(true)
+		.withCustomerId(0L)
+		.withEmail("myTest@test.com")
+		.withFirstName("My")
+		.withLastName("Test")
+		.withMobileNumber("555-2356-254")
+		.withTelephoneNumber("555-8512-763")
+		.withUserName("rcastorena")
+		.withDepartmentId(0L);
 		
-		Assert.assertNotNull(newUser.getDepartmentId());
+		User createdUser = service.create(newUser);
+		Assert.assertEquals(newUser, createdUser);
 		
-		//ugghh.... can't be bothered
+		User returnedUser = service.read(createdUser.getId());
+		Assert.assertTrue(areUsersEqual(newUser, returnedUser));
+	}
+	
+	@Test
+	public void testDeleteUser() {
+		
+		// Create user to be deleted
+		User newUser = new User()
+		.withActive(true)
+		.withCustomerId(0L)
+		.withEmail("myTest@test.com")
+		.withFirstName("My")
+		.withLastName("Test")
+		.withMobileNumber("555-2356-254")
+		.withTelephoneNumber("555-8512-763")
+		.withUserName("rcastorena")
+		.withDepartmentId(0L);
+				
+		User createdUser = service.create(newUser);
+		Assert.assertEquals(newUser, createdUser);
+		
+		User deletedUser = service.delete(createdUser.getId());
+		Assert.assertTrue(areUsersEqual(newUser, deletedUser));
+	}
+	
+	private boolean areUsersEqual(User user1, User user2) {
+		if (user1.isActive() != (user2.isActive())) {
+			return false;
+		}
+		if (!user1.getCustomerId().equals(user2.getCustomerId())) {
+			return false;
+		}
+		if (!user1.getEmail().equals(user2.getEmail())) {
+			return false;
+		}
+		if (!user1.getFirstName().equals(user2.getFirstName())) {
+			return false;
+		}
+		if (!user1.getLastName().equals(user2.getLastName())) {
+			return false;
+		}
+		if (!user1.getMobileNumber().equals(user2.getMobileNumber())) {
+			return false;
+		}
+		if (!user1.getTelephoneNumber().equals(user2.getTelephoneNumber())) {
+			return false;
+		}
+		if (!user1.getUserName().equals(user2.getUserName())) {
+			return false;
+		}
+		if (!user1.getDepartmentId().equals(user2.getDepartmentId())) {
+			return false;
+		}
+		return true;
 	}
 }
