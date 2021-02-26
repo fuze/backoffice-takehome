@@ -59,13 +59,25 @@ public class UserService {
 		
 		return userReturnList;
 	}
+	
+	@Transactional
+	public User update(Long id, User user) {
+		this.read(id);
+
+		try {
+			mapper.update(id, user);
+		} catch (Exception ex) {
+			throw new InternalServerErrorException();
+		}
+		return user;
+	}
 
 	@Transactional
 	public User delete(Long id) {
+		
+		// Remove try catch since it's already handled in the read operation
 		User user = this.read(id);
-		if (user  == null) {
-			throw new NotFoundException();
-		}
+
 		int count = 0;
 		try {
 			count = mapper.delete(id);

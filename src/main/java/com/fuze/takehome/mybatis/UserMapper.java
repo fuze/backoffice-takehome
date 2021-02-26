@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import com.fuze.takehome.model.User;
 
 @Named
@@ -44,6 +46,20 @@ public interface UserMapper {
 	
 	@Select("SELECT id FROM takeHome.users")
 	public Collection<Long> list(); 	
+	
+	@Update("UPDATE	takeHome.users "
+			+ "SET customer_id = #{in.customerId}, "
+			+ "username = #{in.userName}, "
+			+ "first_name = #{in.firstName}, "
+			+ "last_name = #{in.lastName}, "
+			+ "email = #{in.email}, "
+			+ "telephone_number = #{in.telephoneNumber}, "
+			+ "mobile_number = #{in.mobileNumber}, "
+			+ "fax_number = #{in.faxNumber}, "
+			+ "department_id = #{in.departmentId}, "
+			+ "active = #{in.active} "
+			+ "WHERE id = #{id}")
+	public int update(@Param("id") Long id, @Param("in") User in);
 	
 	@Delete("DELETE FROM takeHome.users WHERE id = #{id}")
 	public int delete(Long id); 	
