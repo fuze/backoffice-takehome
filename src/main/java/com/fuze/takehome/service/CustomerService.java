@@ -1,11 +1,13 @@
 package com.fuze.takehome.service;
 
 import javax.inject.Inject;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.NotSupportedException;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.fuze.takehome.model.Customer;
+import com.fuze.takehome.model.User;
 import com.fuze.takehome.mybatis.CustomerMapper;
 
 public class CustomerService {
@@ -27,6 +29,18 @@ public class CustomerService {
 		} else {
 			throw new NotFoundException();
 		}
+	}
+	
+	@Transactional
+	public Customer update(Long id, Customer customer) {
+		this.read(id);
+
+		try {
+			mapper.update(id, customer);
+		} catch (Exception ex) {
+			throw new InternalServerErrorException();
+		}
+		return customer;
 	}
 
 	@Transactional
