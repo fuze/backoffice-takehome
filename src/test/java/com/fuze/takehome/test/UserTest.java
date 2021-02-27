@@ -3,7 +3,6 @@ package com.fuze.takehome.test;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.ws.rs.NotFoundException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -120,7 +119,7 @@ public class UserTest extends AbstractEntityTest {
 		if (!user1.getUserName().equals(user2.getUserName())) {
 			return false;
 		}
-		if (!user1.getDepartmentId().equals(user2.getDepartmentId())) {
+		if (!user1.getDepartmentIds().equals(user2.getDepartmentIds())) {
 			return false;
 		}
 		return true;
