@@ -1,5 +1,7 @@
 package com.fuze.takehome.model;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,9 +32,9 @@ public class User {
 
 	@Size(max = 20, message = "mobileNumber maximum length is 20 characters")
 	private String faxNumber;
-
-	@NotNull(message = "departmentId cannot be null")
-	private Long departmentId;
+	
+	@NotNull(message = "departmentIds cannot be null")
+	private ArrayList<Long> departmentIds = new ArrayList<>();
 
 	@NotNull(message = "active cannot be null")
 	private boolean active;
@@ -69,12 +71,18 @@ public class User {
 		this.customerId = customerId;
 	}
 
-	public Long getDepartmentId() {
-		return departmentId;
+	public ArrayList<Long> getDepartmentIds() {
+		return departmentIds;
+	}
+	
+	public void setDepartmentId(Long departmentId) {
+		ArrayList<Long> departmentIds = new ArrayList<>();
+		departmentIds.add(departmentId);
+		this.departmentIds = departmentIds;
 	}
 
-	public void setDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartmentIds(ArrayList<Long> departmentIds) {
+		this.departmentIds = departmentIds;
 	}
 
 	public void setUserName(String userName) {
@@ -169,9 +177,16 @@ public class User {
 		this.faxNumber = faxNumber;
 		return this;
 	}
-
+	
 	public User withDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
+		ArrayList<Long> departmentIds = new ArrayList<>();
+		departmentIds.add(departmentId);
+		this.departmentIds = departmentIds;
+		return this;
+	}
+
+	public User withDepartmentIds(ArrayList<Long> departmentIds) {
+		this.departmentIds = departmentIds;
 		return this;
 	}
 

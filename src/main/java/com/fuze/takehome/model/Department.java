@@ -1,5 +1,7 @@
 package com.fuze.takehome.model;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotNull;
 
 public class Department {
@@ -16,6 +18,9 @@ public class Department {
 
 	@NotNull(message = "active cannot be null")
 	private boolean active;
+	
+	@NotNull(message = "users cannot be null")
+	private ArrayList<Long> userIds = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -31,6 +36,14 @@ public class Department {
 
 	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
+	}
+	
+	public ArrayList<Long> getUserIds() {
+		return userIds;
+	}
+	
+	public void setUserIds(ArrayList<Long> userIds) {
+		this.userIds = userIds;
 	}
 
 	public String getName() {
@@ -64,6 +77,11 @@ public class Department {
 
 	public Department withCustomerId(Long customerId) {
 		this.customerId = customerId;
+		return this;
+	}
+	
+	public Department withUserIds(ArrayList<Long> userIds) {
+		this.userIds = userIds;
 		return this;
 	}
 

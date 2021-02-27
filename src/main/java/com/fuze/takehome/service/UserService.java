@@ -12,12 +12,17 @@ import javax.ws.rs.NotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 import com.fuze.takehome.model.User;
+import com.fuze.takehome.mybatis.UserDepartmentMapper;
 import com.fuze.takehome.mybatis.UserMapper;
 
 public class UserService {
 
 	@Inject
-	public UserMapper mapper;
+	// Mapper should not be public
+	protected UserMapper mapper;
+	
+	@Inject
+	protected UserDepartmentMapper userDepartmentMapper;
 
 	@Transactional
 	public User create(User user) {
@@ -25,6 +30,9 @@ public class UserService {
 		//Handle error cases when mapper.create() is unable to create a user or when user is not defined correctly
 		try {
 			mapper.create(user);
+			for (Long departmentId : user.getDepartmentIds()) {
+				userDepartmentMapper.create(user.getId(), departmentId);
+			}
 			return user;
 		}
 		//Handle different cases
@@ -81,6 +89,7 @@ public class UserService {
 		int count = 0;
 		try {
 			count = mapper.delete(id);
+			userDepartmentMapper.deleteUser(id);
 		}
 		// Do something with caught exception - throwing internal server error for now
 		catch(Exception e){

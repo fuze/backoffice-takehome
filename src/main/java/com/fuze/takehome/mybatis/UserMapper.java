@@ -1,5 +1,6 @@
 package com.fuze.takehome.mybatis;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Named;
@@ -12,6 +13,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Many;
 
 import com.fuze.takehome.model.User;
 
@@ -19,14 +21,14 @@ import com.fuze.takehome.model.User;
 public interface UserMapper {
 		
 	@Insert("INSERT into takeHome.users "
-			+ "(customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active) "
+			+ "(customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, active) "
 			+ "VALUES "
-			+ "(#{in.customerId}, #{in.userName}, #{in.firstName}, #{in.lastName}, #{in.email}, #{in.telephoneNumber}, #{in.mobileNumber}, #{in.faxNumber}, #{in.departmentId}, #{in.active})")
+			+ "(#{in.customerId}, #{in.userName}, #{in.firstName}, #{in.lastName}, #{in.email}, #{in.telephoneNumber}, #{in.mobileNumber}, #{in.faxNumber}, #{in.active})")
 	@Options(useGeneratedKeys=true, keyProperty="in.id")
 	public int create(@Param("in") User in);
 
 	@Select("SELECT "
-			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active "
+			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, active "
 			+ "FROM takeHome.users "
 			+ "WHERE id = #{id}" )
 	@Results(value = { 
@@ -39,8 +41,8 @@ public interface UserMapper {
 			@Result(property = "telephoneNumber", 		column = "telephone_number"),
 			@Result(property = "mobileNumber", 		column = "mobile_number"),
 			@Result(property = "faxNumber", 		column = "fax_number"),
-			@Result(property = "departmentId", 	column = "department_id"),
-			@Result(property = "active", 		column = "active")
+			@Result(property = "active", 		column = "active"),
+			@Result(property=  "departmentIds", column="id", javaType=ArrayList.class, many=@Many(select="selectDepartments"))
 	})
 	public User read(Long id);
 	
@@ -56,12 +58,17 @@ public interface UserMapper {
 			+ "telephone_number = #{in.telephoneNumber}, "
 			+ "mobile_number = #{in.mobileNumber}, "
 			+ "fax_number = #{in.faxNumber}, "
-			+ "department_id = #{in.departmentId}, "
 			+ "active = #{in.active} "
 			+ "WHERE id = #{id}")
 	public int update(@Param("id") Long id, @Param("in") User in);
 	
 	@Delete("DELETE FROM takeHome.users WHERE id = #{id}")
-	public int delete(Long id); 	
+	public int delete(Long id);
+	
+	@Select("SELECT "
+			+ "department_id "
+			+ "FROM takeHome.user_department "
+			+ "WHERE user_id = #{id}")
+	ArrayList<Long> selectDepartments(Long id);
 }
 
