@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
@@ -22,7 +23,7 @@ public class DepartmentService {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		
 	//Keeps track of the first time a department name was created
-	private static final Map<String, Date> existingDepartmentNames= new HashMap<String, Date>();
+	private static final Map<String, Date> existingDepartmentNames= new ConcurrentHashMap<String, Date>(); //use ConcurrentHashMap instead of HashMap because HashMap is not thread-safe.
 	
 	@Inject
 	protected DepartmentMapper mapper;
