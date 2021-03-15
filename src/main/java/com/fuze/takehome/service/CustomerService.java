@@ -33,4 +33,21 @@ public class CustomerService {
 	public Customer delete(Long id) {
 		throw new NotSupportedException();
 	}
+	
+	@Transactional
+	public Customer update(Long id, Customer customer){
+		Customer dbCustomer = this.read(id);
+		
+		try{
+			if(dbCustomer != null) {
+				mapper.update(id, customer);
+			}
+			else {
+				throw new NotFoundException();
+			}
+			
+		} catch(Exception e){
+		}
+		return customer;
+	}
 }
