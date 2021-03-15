@@ -55,6 +55,17 @@ CREATE TABLE IF NOT EXISTS takeHome.users (
     FOREIGN KEY (department_id)
     REFERENCES takeHome.departments (id)
     ON DELETE CASCADE);
+    
+-- -----------------------------------------------------
+-- Table takeHome.departmentuserrelation
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS takehome.departmentuserrelation (
+	dept_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (dept_id) REFERENCES takeHome.departments(id),
+    FOREIGN KEY (user_id) REFERENCES takehome.users(id), 
+    UNIQUE (dept_id, user_id)
+);
 
 CREATE INDEX IF NOT EXISTS fk_users_customers1_idx ON takeHome.users (customer_id ASC);
 CREATE INDEX IF NOT EXISTS fk_users_departments1_idx ON takeHome.users (department_id ASC);
