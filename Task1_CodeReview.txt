@@ -1,0 +1,11 @@
+Task 1:
+1) In line number 53 of UserService.java, as userIds is a list but everytime only the 0th index value is getting fetched. 
+   So change the line to userReturnList.add(mapper.read(userIds.get(i))); which will fetch and adds all the users from userIds 
+   list to userReturnList linkedlist.
+2) In line numbers 44, 62 an 72 of UserService.java, NotFoundExceptions are thrown but not handled by the calling functions
+   in UserEndPoint.java
+3) It is better to have logger messages in every method using the function log.info();, as it will help to keep track of and resolves
+   any issues that comes in the production. 
+4) In line number 48, the path should not have an action mentioned in the endpoint. 
+5) In UserService.java, every method call to the database must be enclosed with try, catch blocks and proper exceptions must be 
+caught.
