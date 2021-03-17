@@ -1,5 +1,8 @@
 package com.fuze.takehome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,6 +14,9 @@ public class User {
 
 	@NotNull(message = "customerId cannot be null")
 	private Long customerId;
+
+	@NotNull(message = "departmentIds cannot be null")
+	private List<Long> deptIdList = new ArrayList<>();
 
 	@NotNull(message = "userName cannot be null")
 	private String userName;
@@ -116,6 +122,14 @@ public class User {
 	public void setFaxNumber(String faxNumber) {
 		this.faxNumber = faxNumber;
 	}
+	
+	public List<Long> getDeptIdList() {
+		return deptIdList;
+	}
+
+	public void setDeptIdList(List<Long> deptIdList) {
+		this.deptIdList = deptIdList;
+	}
 
 	public boolean isActive() {
 		return active;
@@ -172,11 +186,17 @@ public class User {
 
 	public User withDepartmentId(Long departmentId) {
 		this.departmentId = departmentId;
+		this.deptIdList.add(departmentId);
 		return this;
 	}
 
 	public User withActive(boolean active) {
 		this.active = active;
+		return this;
+	}
+	
+	public User withDepIdList(List<Long> deptIdList) {
+		this.deptIdList = deptIdList;
 		return this;
 	}
 }

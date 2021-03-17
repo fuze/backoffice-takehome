@@ -1,11 +1,13 @@
 package com.fuze.takehome.mybatis;
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 import javax.inject.Named;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -43,7 +45,10 @@ public interface UserMapper {
 	public User read(Long id);
 	
 	@Select("SELECT id FROM takeHome.users")
-	public Collection<Long> list(); 	
+	public Collection<Long> list();
+	
+	@Select("SELECT department_id FROM takehome.departmentuserrelation WHERE user_id = #{userId}")
+	public ArrayList<Long> selectUserDepartments(Long userId); 
 	
 	@Delete("DELETE FROM takeHome.users WHERE id = #{id}")
 	public int delete(Long id); 	

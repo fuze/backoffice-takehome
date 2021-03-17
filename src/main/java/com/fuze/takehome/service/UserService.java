@@ -9,17 +9,33 @@ import javax.ws.rs.NotFoundException;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.fuze.takehome.model.User;
+import com.fuze.takehome.mybatis.DepartmentUserMapper;
 import com.fuze.takehome.mybatis.UserMapper;
 
 public class UserService {
 
 	@Inject
-	public UserMapper mapper;
+//	public UserMapper mapper;
+	protected UserMapper mapper; //changing the access modifier to private
+	
+	@Inject
+	protected DepartmentUserMapper deptUserMapper;
 
 	@Transactional
 	public User create(User user) {
-		mapper.create(user);
-		return user;		
+		
+		try {
+			mapper.create(user);
+			
+			for(Long deptId: user.getDeptIdList()) {
+				deptUserMapper.createDeptUser(user.getId(), deptId);
+			}
+		}
+		catch(Exception e){
+			
+		}
+		return user;
+				
 	}
 
 	@Transactional
@@ -51,6 +67,7 @@ public class UserService {
 		int count = 0;
 		try {
 			count = mapper.delete(id);
+			deptUserMapper.deleteUser(id);
 		}
 		catch(Exception e){
 		}
