@@ -19,33 +19,33 @@ import com.fuze.takehome.service.UserService;
 
 @Path("/users")
 public class UserEndpoint {
-	
+
 	@Inject
-	UserService service;
+	private UserService service; // Make private
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON })	
+	@Consumes({ MediaType.APPLICATION_JSON })
 	public User create(@Valid @NotNull User entity) {
-			return service.create(entity);
+		return service.create(entity);
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public User read(@NotNull @PathParam("id") Long id) {
 		return service.read(id);
 	}
-	
+
 	@GET
-	@Path("/")
+//	@Path("/")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<User> list() {
 		return service.list();
-	}	
-	
+	}
+
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/{id}") // Don't use verb. HTTP request makes it clear.
 	@Produces({ MediaType.APPLICATION_JSON })
 	public User delete(@NotNull @PathParam("id") Long id) {
 		return service.delete(id);
