@@ -11,6 +11,7 @@ import javax.ws.rs.NotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fuze.takehome.model.User;
+import com.fuze.takehome.mybatis.UserDepartmentMapper;
 import com.fuze.takehome.mybatis.UserMapper;
 
 public class UserService {
@@ -18,9 +19,13 @@ public class UserService {
 	@Inject
 	private UserMapper mapper; // Make private
 
+	@Inject
+	private UserDepartmentMapper udMapper;
+
 	@Transactional
 	public User create(User user) {
 		mapper.create(user);
+		user.getDepartmentIds().forEach(departmentId -> udMapper.create(user.getId(), departmentId));
 		return user;
 	}
 
