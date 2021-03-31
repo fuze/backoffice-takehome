@@ -17,28 +17,28 @@ import com.fuze.takehome.service.DepartmentService;
 
 @Path("/departments")
 public class DepartmentEndpoint {
-	
-	@Inject
-	private DepartmentService service; 
 
-	@POST
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON })
-	public Department create(@Valid @NotNull Department entity) {
-			return service.create(entity);
-	}
+    @Inject
+    private DepartmentService service;
 
-	@GET
-	@Path("/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Department read(@NotNull @PathParam("id") Long id) {
-		return service.read(id);
-	}
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Department create(@Valid @NotNull Department entity) {
+        return service.create(entity);
+    }
 
-	@DELETE
-	@Path("/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Department delete(@NotNull @PathParam("id") Long id) {
-		return service.delete(id);		
-	}
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Department read(@NotNull @PathParam("id") Long id) {
+        return service.read(id);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Department delete(@NotNull @PathParam("id") Long id) {
+        return service.delete(id);
+    }
 }

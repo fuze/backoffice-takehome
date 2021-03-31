@@ -10,12 +10,12 @@ import javax.ws.rs.core.Response.Status;
 
 @Path("/health")
 public class HealthCheckEndpoint {
-	
-	@POST
-	@PUT 
-	@GET 
-	@HEAD
-	public Response checkHealth() {
-		return Response.status(Status.OK).build();
-	}
+
+    @POST
+    @PUT
+    @GET
+    @HEAD
+    public Response checkHealth() {
+        return Response.status(Status.OK).build();
+    }
 }

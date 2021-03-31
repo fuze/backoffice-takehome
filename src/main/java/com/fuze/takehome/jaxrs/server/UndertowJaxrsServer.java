@@ -1,6 +1,7 @@
 package com.fuze.takehome.jaxrs.server;
 
 import javax.servlet.ServletException;
+
 import org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher;
 import org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap;
 import org.jboss.resteasy.plugins.spring.SpringContextLoaderListener;
@@ -11,19 +12,19 @@ import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 
 public class UndertowJaxrsServer {
-	
-	public static Undertow initializeServer() throws ServletException {
-		//Add an HTTP listener bound to port 50001 and listing to all
-		Undertow server = Undertow.builder()
+
+    public static Undertow initializeServer() throws ServletException {
+        //Add an HTTP listener bound to port 50001 and listing to all
+        Undertow server = Undertow.builder()
                 .addHttpListener(50001, "0.0.0.0")
                 .setHandler(buildDeploymentManager())
                 .build();
-		
-		server.start();		
-		return server;
-	}
-	
-	private static HttpHandler buildDeploymentManager() throws ServletException {
+
+        server.start();
+        return server;
+    }
+
+    private static HttpHandler buildDeploymentManager() throws ServletException {
         DeploymentInfo servletBuilder = Servlets.deployment()
                 .setClassLoader(UndertowJaxrsServer.class.getClassLoader())
                 .setDeploymentName("UndertowJaxrsServer")
@@ -31,13 +32,13 @@ public class UndertowJaxrsServer {
                 //Location of the Spring XML configuration file
                 .addInitParameter("contextConfigLocation", "classpath:spring/application.xml")
                 .addServlets(
-                		 Servlets.servlet("REST Service", HttpServlet30Dispatcher.class)
-                		 .setAsyncSupported(true)
-                         .setLoadOnStartup(1)
-                         .addMapping("/*")
+                        Servlets.servlet("REST Service", HttpServlet30Dispatcher.class)
+                                .setAsyncSupported(true)
+                                .setLoadOnStartup(1)
+                                .addMapping("/*")
                 )
                 .addListeners(
-                		//Initializes Rest Easy automatically
+                        //Initializes Rest Easy automatically
                         Servlets.listener(ResteasyBootstrap.class),
                         //Initializes Spring
                         Servlets.listener(SpringContextLoaderListener.class)
