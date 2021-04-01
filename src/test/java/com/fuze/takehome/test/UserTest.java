@@ -1,3 +1,7 @@
+/*
+ * Testcompleted by: Jay(Jatinder) Singh
+ * Question 2-User Test
+ */
 package com.fuze.takehome.test;
 
 import java.util.List;
@@ -42,10 +46,30 @@ public class UserTest extends AbstractEntityTest {
 		.withTelephoneNumber("555-8512-763")
 		.withUserName("rcastorena");
 		
-		service.create(newUser);
-		
-		Assert.assertNotNull(newUser.getDepartmentId());
 		
 		//ugghh.... can't be bothered
+		
+		/*
+		 * Disclaimer: I haven't created done JUnit testing like ever except for once.
+		 * I am still going to give it a try.
+		 */
+		
+		User returnedUser = service.create(newUser);
+		
+		//Check to if the user has an ID
+		Assert.assertNotNull(returnedUser.getId());
+		
+		// Check to see if the user Count has increased 
+		allUsers = service.list();
+		Assert.assertEquals(3, allUsers.size());
+		
+		//Delete the new User and verify it's deleted
+		service.delete(returnedUser.getId());
+		
+		Assert.assertNull(service.read(returnedUser.getId()));
+		
+		allUsers = service.list();
+		Assert.assertEquals(2, allUsers.size());
+		
 	}
 }

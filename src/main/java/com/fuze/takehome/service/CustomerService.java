@@ -1,3 +1,7 @@
+/*
+ * Updates by: Jay(Jatinder) Singh
+ * Question 3- CustomerService
+ */
 package com.fuze.takehome.service;
 
 import javax.inject.Inject;
@@ -33,4 +37,15 @@ public class CustomerService {
 	public Customer delete(Long id) {
 		throw new NotSupportedException();
 	}
+	
+	@Transactional
+	public Customer update(Long id, Customer entity) {
+		if(mapper.read(id) == null) {
+			throw new NotSupportedException();
+		}
+		mapper.update(id,entity);
+		
+		return entity;
+	}
+	
 }

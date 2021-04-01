@@ -1,9 +1,14 @@
+/*
+ * Thread-safe by: Jay(Jatinder) Singh
+ * Question 5
+ */
 package com.fuze.takehome.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
@@ -22,7 +27,8 @@ public class DepartmentService {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		
 	//Keeps track of the first time a department name was created
-	private static final Map<String, Date> existingDepartmentNames= new HashMap<String, Date>();
+	//JS: changed HashMap to ConcurrentHashMap as HashMap is not Thread-safe
+	private static final Map<String, Date> existingDepartmentNames= new ConcurrentHashMap<String, Date>();
 	
 	@Inject
 	protected DepartmentMapper mapper;

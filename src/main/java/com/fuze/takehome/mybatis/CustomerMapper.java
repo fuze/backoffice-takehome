@@ -1,3 +1,7 @@
+/*
+ * Updates by: Jay(Jatinder) Singh
+ * Question 3- CustomerMapper
+ */
 package com.fuze.takehome.mybatis;
 
 import javax.inject.Named;
@@ -9,6 +13,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import com.fuze.takehome.model.Customer;
 
 @Named
@@ -33,5 +39,14 @@ public interface CustomerMapper {
 	public Customer read(Long id); 	
 	
 	@Delete("DELETE FROM takeHome.customers WHERE id = #{id}")
-	public int delete(Long id); 	
+	public int delete(Long id);
+	
+	@Update("UPDATE takeHome.customers SET"
+			+ "name = #{in.name},"
+			+  "active = #{in.active},"
+			+  "contact.email = #{in.contact.email},"
+			+  "contact.firstName = #{in.contact.firstName},"
+			+  "contact.lastName = #{in.contact.lastName},"
+			+  "WHERE id= #{id}")
+	public int update(@Param("id") Long id, @Param("in") Customer in); 	
 }
