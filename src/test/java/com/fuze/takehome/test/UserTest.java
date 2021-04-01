@@ -44,7 +44,7 @@ public class UserTest extends AbstractEntityTest {
 		
 		service.create(newUser);
 		
-		Assert.assertNotNull(newUser.getDepartmentId());
+		Assert.assertNotNull(newUser.getDepartmentIds());
 		
 		//ugghh.... can't be bothered
 	}

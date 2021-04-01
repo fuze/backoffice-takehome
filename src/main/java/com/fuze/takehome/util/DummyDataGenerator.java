@@ -10,6 +10,8 @@ import com.fuze.takehome.service.CustomerService;
 import com.fuze.takehome.service.DepartmentService;
 import com.fuze.takehome.service.UserService;
 
+import java.util.Arrays;
+
 public class DummyDataGenerator {
     @Inject
     private DepartmentService departmentService;
@@ -55,7 +57,7 @@ public class DummyDataGenerator {
         userService.create(new User()
                 .withActive(true)
                 .withCustomerId(0L)
-                .withDepartmentId(0L)
+                .withDepartmentIds(Arrays.asList(0L,1L))
                 .withEmail("r.castorena@toyota.ca")
                 .withFirstName("Randy")
                 .withLastName("Castorena")
@@ -66,6 +68,7 @@ public class DummyDataGenerator {
         userService.create(new User()
                 .withActive(true)
                 .withCustomerId(0L)
+                .withDepartmentIds(Arrays.asList(0L,1L))
                 .withEmail("w.hertlein@toyota.ca")
                 .withFirstName("Wes")
                 .withLastName("Hertlein")

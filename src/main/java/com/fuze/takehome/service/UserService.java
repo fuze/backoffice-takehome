@@ -11,6 +11,7 @@ import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 
 import com.fuze.takehome.exceptions.UserServiceExceptions;
+import com.fuze.takehome.mybatis.DepartmentUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +24,17 @@ public class UserService {
     static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Inject
-    private UserMapper mapper;  //Changed an access modifier to Private
+    private UserMapper userMapper;  //Changed an access modifier to Private
+    @Inject
+    private DepartmentUserMapper departmentUserMapper;
 
     @Transactional
     public User create(User user) {
         try {
-            mapper.create(user);
+            userMapper.create(user);
+            for(Long departmentId:user.getDepartmentIds()){
+                departmentUserMapper.create(user.getId(),departmentId);
+            }
         } catch (Exception e) {
             final Throwable cause = e.getCause();
             logger.error(e.getMessage());
@@ -45,7 +51,7 @@ public class UserService {
 
     @Transactional
     public User read(Long id) {
-        User user = mapper.read(id);
+        User user = userMapper.read(id);
         if (user == null) {
             logger.info("User not found with Id:" + id);
             throw new NotFoundException();
@@ -56,23 +62,23 @@ public class UserService {
     @Transactional
     public List<User> list() {
         LinkedList<User> userReturnList = new LinkedList<User>();
-        ArrayList<Long> userIds = new ArrayList<Long>(mapper.list());
+        ArrayList<Long> userIds = new ArrayList<Long>(userMapper.list());
         for (int i = 0; i < userIds.size(); i++) {
-            userReturnList.add(mapper.read(userIds.get(i))); //Updated hard coded '0' to use index i
+            userReturnList.add(userMapper.read(userIds.get(i))); //Updated hard coded '0' to use index i
         }
         return userReturnList;
     }
 
     @Transactional
     public User delete(Long id) {
-        User user = mapper.read(id); //replace this with mapper.
+        User user = userMapper.read(id); //replace this with mapper.
         if (user == null) {
             logger.info("User not found with Id:" + id);
             throw new NotFoundException();
         }
         //Since sql query is not designed to return number of rows deleted we don't need count logic.
         try {
-            int success = mapper.delete(id);
+            int success = userMapper.delete(id);
             if (success == 0) {
                 logger.info("User not found with Id:" + id);
                 throw new NotFoundException();

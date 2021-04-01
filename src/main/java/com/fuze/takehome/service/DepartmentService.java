@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.NotSupportedException;
 
+import com.fuze.takehome.mybatis.DepartmentUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +27,13 @@ public class DepartmentService {
     private static final Map<String, Date> existingDepartmentNames = new ConcurrentHashMap<String, Date>();
 
     @Inject
-    protected DepartmentMapper mapper;
+    private DepartmentMapper departmentMapper;
+    @Inject
+    private DepartmentUserMapper departmentUserMapper;
 
     @Transactional
     public Department create(Department department) {
-        mapper.create(department);
-
+        departmentMapper.create(department);
         //Department Name is not a unique field
         //However, print out a warning message to the log whenever
         //we see a new department with a previously encountered name.
@@ -54,7 +56,7 @@ public class DepartmentService {
 
     @Transactional
     public Department read(Long id) {
-        Department department = mapper.read(id);
+        Department department = departmentMapper.read(id);
         if (department != null) {
             return department;
         } else {
