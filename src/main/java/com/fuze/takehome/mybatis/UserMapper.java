@@ -31,13 +31,9 @@ public interface UserMapper {
             @Result(property = "telephoneNumber", column = "telephone_number"),
             @Result(property = "mobileNumber", column = "mobile_number"),
             @Result(property = "faxNumber", column = "fax_number"),
-            @Result(property = "departmentIds", column = "id", javaType = Collection.class, many = @Many(select = "selectUserDepartments")),
             @Result(property = "active", column = "active")
     })
     public User read(Long id);
-
-    @Select("SELECT department_id FROM takeHome.department_user WHERE user_id = #{userId}")
-    Collection<Long> selectUserDepartments(Long userId);
 
     @Select("SELECT id FROM takeHome.users")
     public Collection<Long> list();

@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS takeHome.users (
 CREATE INDEX IF NOT EXISTS fk_users_customers1_idx ON takeHome.users (customer_id ASC);
 
 -- -----------------------------------------------------
--- Table takeHome.user_department
+-- Table takeHome.department_user
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS takeHome.department_user(
   user_id BIGINT NOT NULL,

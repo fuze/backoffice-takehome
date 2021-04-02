@@ -5,9 +5,11 @@ import javax.inject.Inject;
 import com.fuze.takehome.model.Customer;
 import com.fuze.takehome.model.Customer.Contact;
 import com.fuze.takehome.model.Department;
+import com.fuze.takehome.model.DepartmentUser;
 import com.fuze.takehome.model.User;
 import com.fuze.takehome.service.CustomerService;
 import com.fuze.takehome.service.DepartmentService;
+import com.fuze.takehome.service.DepartmentUserService;
 import com.fuze.takehome.service.UserService;
 
 import java.util.Arrays;
@@ -21,6 +23,9 @@ public class DummyDataGenerator {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    private DepartmentUserService departmentUserService;
 
     public void generateData() {
         generateCustomers();
@@ -57,7 +62,6 @@ public class DummyDataGenerator {
         userService.create(new User()
                 .withActive(true)
                 .withCustomerId(0L)
-                .withDepartmentIds(Arrays.asList(0L,1L))
                 .withEmail("r.castorena@toyota.ca")
                 .withFirstName("Randy")
                 .withLastName("Castorena")
@@ -68,12 +72,15 @@ public class DummyDataGenerator {
         userService.create(new User()
                 .withActive(true)
                 .withCustomerId(0L)
-                .withDepartmentIds(Arrays.asList(0L,1L))
                 .withEmail("w.hertlein@toyota.ca")
                 .withFirstName("Wes")
                 .withLastName("Hertlein")
                 .withMobileNumber("555-7124-554")
                 .withTelephoneNumber("555-9965-123")
                 .withUserName("whertlein"));
+
+        departmentUserService.create(new DepartmentUser()
+                .withDepartmentId(0L)
+                .withUserId(0L));
     }
 }

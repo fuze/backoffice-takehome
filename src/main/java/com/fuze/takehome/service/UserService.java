@@ -7,10 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.sound.midi.SysexMessage;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 
 import com.fuze.takehome.exceptions.UserServiceExceptions;
+import com.fuze.takehome.mybatis.DepartmentMapper;
 import com.fuze.takehome.mybatis.DepartmentUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,24 +27,21 @@ public class UserService {
 
     @Inject
     private UserMapper userMapper;  //Changed an access modifier to Private
-    @Inject
-    private DepartmentUserMapper departmentUserMapper;
 
     @Transactional
     public User create(User user) {
         try {
             userMapper.create(user);
-            for(Long departmentId:user.getDepartmentIds()){
-                departmentUserMapper.create(user.getId(),departmentId);
-            }
         } catch (Exception e) {
             final Throwable cause = e.getCause();
+            System.out.println(cause instanceof Exception);
+            e.printStackTrace();
             logger.error(e.getMessage());
             if (cause instanceof SQLIntegrityConstraintViolationException) {
                 throw new UserServiceExceptions("DB Exception occurred, due to Integrity constraint violation");
             } else if (cause instanceof SQLException) {
                 throw new UserServiceExceptions("DB connection issue");
-            } else {
+            }else {
                 throw new InternalServerErrorException();
             }
         }

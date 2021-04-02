@@ -33,9 +33,6 @@ public class User {
     @Size(max = 20, message = "mobileNumber maximum length is 20 characters")
     private String faxNumber;
 
-    @NotNull(message = "departmentIds cannot be null")
-    private List<Long> departmentIds;
-
     @NotNull(message = "active cannot be null")
     private boolean active;
 
@@ -69,14 +66,6 @@ public class User {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
-    }
-
-    public List<Long> getDepartmentIds() {
-        return departmentIds;
-    }
-
-    public void setDepartmentIds(List<Long> departmentIds) {
-        this.departmentIds = departmentIds;
     }
 
     public void setUserName(String userName) {
@@ -172,10 +161,10 @@ public class User {
         return this;
     }
 
-    public User withDepartmentIds(List<Long> departmentIds) {
-        this.departmentIds = departmentIds;
-        return this;
-    }
+//    public User withDepartmentIds(List<Long> departmentIds) {
+//        this.departmentIds = departmentIds;
+//        return this;
+//    }
 
     public User withActive(boolean active) {
         this.active = active;
