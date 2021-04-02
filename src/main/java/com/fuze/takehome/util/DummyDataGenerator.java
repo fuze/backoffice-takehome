@@ -31,6 +31,7 @@ public class DummyDataGenerator {
         generateCustomers();
         generateDepartments();
         generateUsers();
+        //generateDepartmentUsers();
     }
 
     private void generateCustomers() {
@@ -78,7 +79,8 @@ public class DummyDataGenerator {
                 .withMobileNumber("555-7124-554")
                 .withTelephoneNumber("555-9965-123")
                 .withUserName("whertlein"));
-
+    }
+    private void generateDepartmentUsers(){
         departmentUserService.create(new DepartmentUser()
                 .withDepartmentId(0L)
                 .withUserId(0L));
