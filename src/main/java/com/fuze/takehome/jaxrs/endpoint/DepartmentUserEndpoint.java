@@ -23,7 +23,6 @@ public class DepartmentUserEndpoint {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response create(@Valid @NotNull DepartmentUser entity) {
-        System.out.println("departmentuser");
         DepartmentUser relation = null;
         try {
             relation = departmentUserService.create(entity);

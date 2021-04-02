@@ -44,8 +44,6 @@ public class DepartmentUserService {
         }
         catch (Exception e) {
             final Throwable cause = e.getCause();
-            System.out.println(cause instanceof Exception);
-            e.printStackTrace();
             logger.error(e.getMessage());
             if (cause instanceof SQLIntegrityConstraintViolationException) {
                 throw new UserServiceExceptions("DB Exception occurred, due to Integrity constraint violation");
