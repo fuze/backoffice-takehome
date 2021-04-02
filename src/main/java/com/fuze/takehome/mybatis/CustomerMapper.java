@@ -26,13 +26,13 @@ public interface CustomerMapper {
     })
     public Customer read(Long id);
 
-    @Update("UPDATE takeHome.customers c SET " +
-            "c.name = #{in.name}" +
-            "c.active = #{in.active}" +
-            "c.contact_email = #{in.contact.email}" +
-            "c.contact_firstname = #{in.contact.firstName}" +
-            "c.contact_lastname = #{in.contact.lastName}" +
-            "WHERE c.id = #{id}")
+    @Update("UPDATE takeHome.customers SET " +
+            "name = #{in.name}," +
+            "active = #{in.active}," +
+            "contact_email = #{in.contact.email}," +
+            "contact_firstname = #{in.contact.firstName}," +
+            "contact_lastname = #{in.contact.lastName}" +
+            "WHERE id = #{id}")
     public int update(@Param("id") Long id, @Param("in") Customer in);
 
     @Delete("DELETE FROM takeHome.customers WHERE id = #{id}")
