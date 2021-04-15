@@ -16,30 +16,37 @@ import com.fuze.takehome.model.Customer;
 import com.fuze.takehome.service.CustomerService;
 
 @Path("/customers")
+@Produces({ MediaType.APPLICATION_JSON })
+@Consumes({ MediaType.APPLICATION_JSON })
 public class CustomerEndpoint {
 	
 	@Inject
-	private CustomerService service; 
+	private CustomerService customerService; 
 
 	@POST
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON })
 	public Customer create(@Valid @NotNull Customer entity) {
-			return service.create(entity);
+			return customerService.create(entity);
+	}
+
+	// Implemented custom annotated @PATCH method, see com.fuze.takehome.jaxrs.endpoint.PATCH
+	@PATCH
+	@Path("/{id}")
+	public Customer update(@Valid @NotNull Customer entity, @PathParam("id") Long id) {
+		// Note, I assume we are supporting the PATCH method (https://tools.ietf.org/html/rfc5789) and not the PUT method; 
+		// the PATCH method supports both full and partial modification of an existing HTTP resource.
+		return customerService.update(entity, id);
 	}
 
 	@GET
 	@Path("/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
 	public Customer read(@NotNull @PathParam("id") Long id) {
-		return service.read(id);
+		return customerService.read(id);
 	}
-
 	
 	@DELETE
 	@Path("/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
 	public Customer delete(@NotNull @PathParam("id") Long id) {
-		return service.delete(id);
+		return customerService.delete(id);
 	}
+	
 }

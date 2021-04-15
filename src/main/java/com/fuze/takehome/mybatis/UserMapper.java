@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -17,14 +18,14 @@ import com.fuze.takehome.model.User;
 public interface UserMapper {
 		
 	@Insert("INSERT into takeHome.users "
-			+ "(customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active) "
+			+ "(customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, active) "
 			+ "VALUES "
-			+ "(#{in.customerId}, #{in.userName}, #{in.firstName}, #{in.lastName}, #{in.email}, #{in.telephoneNumber}, #{in.mobileNumber}, #{in.faxNumber}, #{in.departmentId}, #{in.active})")
+			+ "(#{in.customerId}, #{in.userName}, #{in.firstName}, #{in.lastName}, #{in.email}, #{in.telephoneNumber}, #{in.mobileNumber}, #{in.faxNumber}, #{in.active})")
 	@Options(useGeneratedKeys=true, keyProperty="in.id")
 	public int create(@Param("in") User in);
 
 	@Select("SELECT "
-			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, department_id, active "
+			+ "id, customer_id, username, first_name, last_name, email, telephone_number, mobile_number, fax_number, active "
 			+ "FROM takeHome.users "
 			+ "WHERE id = #{id}" )
 	@Results(value = { 
@@ -38,7 +39,9 @@ public interface UserMapper {
 			@Result(property = "mobileNumber", 		column = "mobile_number"),
 			@Result(property = "faxNumber", 		column = "fax_number"),
 			@Result(property = "departmentId", 	column = "department_id"),
-			@Result(property = "active", 		column = "active")
+			@Result(property = "active", 		column = "active"),
+			@Result(property = "departmentIds", column = "id", javaType = Collection.class, many = @Many(select = "getDepartmentsUsers"))
+			
 	})
 	public User read(Long id);
 	
@@ -46,6 +49,9 @@ public interface UserMapper {
 	public Collection<Long> list(); 	
 	
 	@Delete("DELETE FROM takeHome.users WHERE id = #{id}")
-	public int delete(Long id); 	
+	public int delete(Long id);
+	
+	@Select("SELECT department_id FROM takeHome.departments_users WHERE user_id = #{userId}")
+	Collection<Long> getDepartmentsUsers(Long userId);
 }
 

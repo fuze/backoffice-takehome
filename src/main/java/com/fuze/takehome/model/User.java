@@ -1,9 +1,13 @@
 package com.fuze.takehome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 
@@ -31,8 +35,8 @@ public class User {
 	@Size(max = 20, message = "mobileNumber maximum length is 20 characters")
 	private String faxNumber;
 
-	@NotNull(message = "departmentId cannot be null")
-	private Long departmentId;
+	@NotNull(message = "departmentIds cannot be null")
+	private List<Long> departmentIds = new ArrayList<Long>();
 
 	@NotNull(message = "active cannot be null")
 	private boolean active;
@@ -69,12 +73,12 @@ public class User {
 		this.customerId = customerId;
 	}
 
-	public Long getDepartmentId() {
-		return departmentId;
+	public List<Long> getDepartmentIds() {
+		return departmentIds;
 	}
 
-	public void setDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartmentIds(List<Long> departmentIds) {
+		this.departmentIds = departmentIds;
 	}
 
 	public void setUserName(String userName) {
@@ -170,8 +174,8 @@ public class User {
 		return this;
 	}
 
-	public User withDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
+	public User withDepartmentIds(List<Long> departmentIds) {
+		this.departmentIds = departmentIds;
 		return this;
 	}
 

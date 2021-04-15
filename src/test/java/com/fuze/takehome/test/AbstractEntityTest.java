@@ -8,11 +8,9 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.fuze.takehome.Main;
-
 public class AbstractEntityTest {
 
-	private static final Logger log = LoggerFactory.getLogger(Main.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractEntityTest.class);
 	
 	private static final String SPRING_CONTEXT_PATH = "classpath:spring/application.xml";
 	
