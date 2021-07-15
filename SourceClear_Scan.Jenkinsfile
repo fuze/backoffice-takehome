@@ -30,7 +30,7 @@ pipeline {
        docker {
             label 'ec2_vam_reserved'
             registryCredentialsId 'fuze_dockerhub'
-            image 'fuze/dev-tools:45'
+            image 'fuze/dev-tools:69'
             args '-u 0:0 -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
