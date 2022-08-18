@@ -15,7 +15,7 @@
 		<logback.version>1.1.7</logback.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<gson.version>2.7</gson.version>
-		<undertow.version>1.4.20.Final</undertow.version>
+		<undertow.version>2.2.19.Final</undertow.version>
 		<resteasy.version>3.1.4.Final</resteasy.version>
 		<servlet.version>3.1.0</servlet.version>
 		<jaxrs.version>2.0.1</jaxrs.version>
